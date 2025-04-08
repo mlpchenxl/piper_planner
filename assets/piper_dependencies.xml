@@ -1,0 +1,16 @@
+<mujocoinclude>
+    <compiler angle="radian" inertiafromgeom="auto" inertiagrouprange="4 5"/>
+    <asset>
+        <material name="black" rgba="0.15 0.15 0.15 1" />
+        <mesh name="base_link" file="meshes/base_link.STL" scale="1 1 1"/>
+        <mesh name="link1" file="meshes/link1.STL" scale="1 1 1"/>
+        <mesh name="link2" file="meshes/link2.STL" scale="1 1 1"/>
+        <mesh name="link3" file="meshes/link3.STL" scale="1 1 1"/>
+        <mesh name="link4" file="meshes/link4.STL" scale="1 1 1"/>
+        <mesh name="link5" file="meshes/link5.STL" scale="1 1 1"/>
+        <mesh name="link6" file="meshes/link6.STL" scale="1 1 1"/>
+        <mesh name="link7" file="meshes/link7.STL" scale="1 1 1"/>
+        <mesh name="link8" file="meshes/link8.STL" scale="1 1 1"/>
+    </asset>
+
+</mujocoinclude>

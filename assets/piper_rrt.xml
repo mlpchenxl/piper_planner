@@ -1,0 +1,24 @@
+<mujoco>
+  <include file="piper_scene.xml"/>
+  <include file="piper_dependencies.xml"/>
+
+  <worldbody>
+    <include file="piper_right.xml" />
+
+    <!-- <body name="pillar" pos="0.1 0.5 0.2">
+      <geom pos="0 0 0" size="0.04 0.04 0.2" type="box" name="pillar" rgba="0.8 1 0.4 1" 
+      solref="0.001 1" solimp="0.999 0.999 0.001" contype="1" conaffinity="2"/>
+    </body> -->
+
+  </worldbody>
+
+  <actuator>
+        <position ctrllimited="true" ctrlrange="-2.687 2.687" joint="piper_arm_joint1" kp="10000" user="1" forcelimited="true" forcerange="-50000 50000"/>
+        <position ctrllimited="true" ctrlrange="0.0 3.403" joint="piper_arm_joint2" kp="200" user="1" forcelimited="true" forcerange="-20000 20000"/>
+        <position ctrllimited="true" ctrlrange="-3.0541012 0.0" joint="piper_arm_joint3" kp="50" user="1" forcelimited="true" forcerange="-1000 1000"/>
+        <position ctrllimited="true" ctrlrange="-1.8499 1.8499" joint="piper_arm_joint4" kp="50" user="1" forcelimited="true" forcerange="-70 70"/>
+        <position ctrllimited="true" ctrlrange="-1.3089 1.3089" joint="piper_arm_joint5" kp="20" user="1" forcelimited="true" forcerange="-50 50"/>
+        <position ctrllimited="true" ctrlrange="-1.7452 1.7452" joint="piper_arm_joint6" kp="5" user="1" forcelimited="true" forcerange="-6 6"/>
+  </actuator>
+
+</mujoco>

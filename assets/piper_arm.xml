@@ -1,0 +1,86 @@
+<mujoco>
+    <asset>
+        <material name="black" rgba="0.15 0.15 0.15 1" />
+        <mesh name="base_link" file="meshes/base_link.STL" scale="1 1 1"/>
+        <mesh name="link1" file="meshes/link1.STL" scale="1 1 1"/>
+        <mesh name="link2" file="meshes/link2.STL" scale="1 1 1"/>
+        <mesh name="link3" file="meshes/link3.STL" scale="1 1 1"/>
+        <mesh name="link4" file="meshes/link4.STL" scale="1 1 1"/>
+        <mesh name="link5" file="meshes/link5.STL" scale="1 1 1"/>
+        <mesh name="link6" file="meshes/link6.STL" scale="1 1 1"/>
+        <mesh name="link7" file="meshes/link7.STL" scale="1 1 1"/>
+        <mesh name="link8" file="meshes/link8.STL" scale="1 1 1"/>
+    </asset>
+
+    <worldbody>
+
+    
+        <!-- <include file="a1_right.xml" /> -->
+
+
+
+        <body name="pillar" pos="0.1 0.5 0.2">
+            <geom pos="0 0 0" size="0.04 0.04 0.2" type="box" name="pillar" rgba="0.8 1 0.4 1" 
+            solref="0.001 1" solimp="0.999 0.999 0.001" contype="1" conaffinity="2"/>
+        </body>
+
+        <!-- 机械臂 -->
+        <body name="piper_arm" pos="0.469 0.5 0" quat="0 0 0 1">
+            <site name="left_center" pos="0 0 0" size="0.01" rgba="1 0.3 0.3 1" group="2"/>
+            <inertial pos="0 0 0" quat="1 0 0 0" mass="3" diaginertia="0.0071633 0.00602451 0.00169819" />
+            <geom type="mesh" contype="1" conaffinity="1" group="1" rgba="0.792157 0.819608 0.933333 1" mesh="base_link" />
+                <body name="piper_arm_link1" pos="0 0 0.123" quat="0.707105 0 0 -0.707108">
+                    <inertial pos="0.00101464 -0.000188218 -0.00563398" quat="0.51914 0.484099 0.499514 0.496616" mass="0.187141" diaginertia="0.000116498 0.000102842 9.25687e-05" />
+                    <joint name="piper_arm_joint1" pos="0 0 0" axis="0 0 1" limited="true" range="-2.618 2.618" damping="100"/>
+                    <geom type="mesh" contype="1" conaffinity="1" group="1" rgba="0.792157 0.819608 0.933333 1" mesh="link1" />
+                    <body name="piper_arm_link2" pos="0 0 0" quat="0.499998 0.5 -0.500002 -0.5">
+                        <inertial pos="0.152179 -0.000407729 0.000313761" quat="0.486717 0.483816 0.516937 0.511668" mass="1.47792" diaginertia="0.0126632 0.01212 0.00129807" />
+                        <joint name="piper_arm_joint2" pos="0 0 0" axis="0 0 1" limited="true" range="0 3.14" damping="100"/>
+                        <geom type="mesh" contype="1" conaffinity="1" group="1" rgba="0.792157 0.819608 0.933333 1" mesh="link2" />
+                        <body name="piper_arm_link3" pos="0.28358 0.028726 0" quat="0.998726 0 0 0.0504536">
+                            <inertial pos="-0.0767504 0.02843 0.000535139" quat="0.569519 0.572735 0.410029 0.423674" mass="0.550577" diaginertia="0.00255344 0.00250488 0.000225441" />
+                            <joint name="piper_arm_joint3" pos="0 0 0" axis="0 0 1" limited="true" range="-2.697 0" damping="20"/>
+                            <geom type="mesh" contype="1" conaffinity="1" group="1" rgba="0.792157 0.819608 0.933333 1" mesh="link3" />
+                            <body name="piper_arm_link4" pos="-0.24221 0.068514 0" quat="0.544767 -0.544769 -0.450809 0.450808">
+                                <inertial pos="0.000761852 -0.00691041 -0.0082418" quat="0.955364 0.287171 -0.06124 0.0325819" mass="0.131584" diaginertia="6.35666e-05 5.96298e-05 5.01586e-05" />
+                                <joint name="piper_arm_joint4" pos="0 0 0" axis="0 0 1" limited="true" range="-1.832 1.832" damping="5"/>
+                                <geom type="mesh" contype="1" conaffinity="1" group="1" rgba="0.792157 0.819608 0.933333 1" mesh="link4" />
+                                <body name="piper_arm_link5" pos="0 0 0" quat="0.707105 0.707108 0 0">
+                                    <inertial pos="0.000165456 0.0435329 -0.00463601" quat="0.351922 0.544329 -0.638337 0.415191" mass="0.180893" diaginertia="0.000152945 0.000151575 6.06548e-05" />
+                                    <joint name="piper_arm_joint5" pos="0 0 0" axis="0 0 1" limited="true" range="-1.22 1.22" damping="2"/>
+                                    <geom type="mesh" contype="1" conaffinity="1" group="1" rgba="0.792157 0.819608 0.933333 1" mesh="link5" />
+                                    <body name="piper_arm_link6" pos="0 0.091 0.0014165" quat="0.499998 -0.5 -0.5 -0.500002">
+                                        <inertial pos="-5.01869e-08 0.000316499 0.0332864" quat="0.505341 0.494835 0.505119 0.494595" mass="0.229518" diaginertia="0.000217225 0.000174535 0.000111021" />
+                                        <joint name="piper_arm_joint6" pos="0 0 0" axis="0 0 1" limited="true" range="-3.14 3.14" damping="0.1"/>
+                                        <geom type="mesh" contype="1" conaffinity="1" group="1" rgba="0.792157 0.819608 0.933333 1" mesh="link6" />
+                                        <body name="piper_arm_link7" pos="0 0 0.13503" quat="0.499998 0.5 0.500002 0.5">
+                                            <inertial pos="-0.000196529 -0.048661 -0.0100523" quat="0.456415 0.5408 -0.549503 0.444147" mass="0.0391771" diaginertia="1.72647e-05 1.27454e-05 6.19386e-06" />
+                                            <!-- <joint name="piper_arm_joint7" pos="0 0 0" axis="0 0 -1" type="slide" limited="true" range="0 0.04" damping="100" /> -->
+                                            <geom condim="4" solimp="2 1 0.01" solref="0.01 1" friction="3 0.005 0.0001" pos="0 0 0" euler="0 0 0" type="mesh" mesh="link7" name="piper_arm_link7"/>
+                                        </body>
+                                        <body name="piper_arm_link8" pos="0 0 0.13503" quat="0.499998 -0.5 -0.500002 0.5">
+                                            <inertial pos="0.000195593 0.0486618 -0.0100522" quat="0.549496 0.444139 -0.456425 0.540805" mass="0.0391763" diaginertia="1.72644e-05 1.27456e-05 6.19337e-06" />
+                                            <!-- <joint name="piper_arm_joint8" pos="0 0 0" axis="0 0 1" type="slide" limited="true" range="-0.04 0" damping="100" /> -->
+                                            <geom condim="4" solimp="2 1 0.01" solref="0.01 1" friction="3 0.005 0.0001" pos="0 0 0" euler="0 0 0" type="mesh" mesh="link8" name="piper_arm_link8"/>
+                                        </body>
+                                    </body>
+                                </body>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+        </body>
+    </worldbody>
+
+    <actuator>
+        <position ctrllimited="true" ctrlrange="-2.687 2.687" joint="piper_arm_joint1" kp="10000" user="1" forcelimited="true" forcerange="-50000 50000"/>
+        <position ctrllimited="true" ctrlrange="0.0 3.403" joint="piper_arm_joint2" kp="200" user="1" forcelimited="true" forcerange="-20000 20000"/>
+        <position ctrllimited="true" ctrlrange="-3.0541012 0.0" joint="piper_arm_joint3" kp="50" user="1" forcelimited="true" forcerange="-1000 1000"/>
+        <position ctrllimited="true" ctrlrange="-1.8499 1.8499" joint="piper_arm_joint4" kp="50" user="1" forcelimited="true" forcerange="-70 70"/>
+        <position ctrllimited="true" ctrlrange="-1.3089 1.3089" joint="piper_arm_joint5" kp="20" user="1" forcelimited="true" forcerange="-50 50"/>
+        <position ctrllimited="true" ctrlrange="-1.7452 1.7452" joint="piper_arm_joint6" kp="5" user="1" forcelimited="true" forcerange="-6 6"/>
+        <!-- <position ctrllimited="true" ctrlrange="0 0.0475" joint="piper_arm_joint7" kp="1000" user="1" forcelimited="true" forcerange="-100 100"/>
+        <position ctrllimited="true" ctrlrange="-0.0475 0" joint="piper_arm_joint8" kp="1000" user="1" forcelimited="true" forcerange="-100 100"/> -->
+    </actuator>
+
+</mujoco>
