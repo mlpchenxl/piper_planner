@@ -3,15 +3,18 @@ import cv2
 import numpy as np
 import random
 
+from piper_util.piper_util import *
+
 # Load dm_control model
-model = mujoco.Physics.from_xml_path('assets/a1_rrt.xml')
+model = mujoco.Physics.from_xml_path('assets/piper_rrt.xml')
+
 
 class RRT:
     class Node:
         def __init__(self, q):
-            self.q = q
-            self.path_q = []
-            self.parent = None
+            self.q = q           # 关节角度配置
+            self.path_q = []     # 从父节点到该节点的路径
+            self.parent = None   # 父节点
 
     def __init__(self, start, goal, joint_limits, expand_dis=0.1, path_resolution=0.01, goal_sample_rate=5, max_iter=1000):
         self.start = self.Node(start)
@@ -161,23 +164,65 @@ def apply_rrt_path_to_dm_control(model, path, video_name="rrt_robot_motion.mp4")
     print(f"Video saved as {video_name}")
 
 
-# Example usage:
-start = [0.5, 1.3, -0.8, -1.5, 0.5, -0.45]  # Start joint angles
-goal = [-0.5, 1.3, -0.8, 1.5, 0.5, 0.45]  # Goal joint angles
-joint_limits = [(-3, 3)] * 6  # Example joint limits
-joint_limits[2] = (-3, 0) # elbow
-joint_limits[3] = (-1.5, 1.5) # forearm_roll
 
-# Initialize RRT (assuming you have the RRT class set up)
-rrt = RRT(start, goal, joint_limits)
-rrt_path = rrt.planning(model)  # Generate the RRT path
-print("----------")
-print(type(rrt_path))
-print(len(rrt_path))
+if __name__ == "__main__":
+    # Example usage:
+    start = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]  # Start joint angles
+    # goal = [0, 1.50603839, -0.26118674, 0, -1.13815009, 0]  # Goal joint angles
+    goal = [-0.67066075, 1.38224431, -0.87740199, 0.63781279, -1.22, 0.88061223]  # Goal joint angles
 
-# Apply the path to the MuJoCo simulation and record video
-# if rrt_path:
-#     print("Path found!")
-#     apply_rrt_path_to_dm_control(model, rrt_path, video_name="rrt_robot_motion.mp4")
-# else:
-#     print("No path found!")
+
+    piper = C_PiperInterface("can0")
+    piper.ConnectPort()
+    piper.EnableArm(7)
+    enable_fun(piper=piper)
+    # piper.DisableArm(7)
+    piper.GripperCtrl(0,1000,0x01, 0)
+    factor = 57295.7795 #1000*180/3.1415926
+    # factor =1
+    position = [0,0,0,0,0,0,0]
+
+    # goal = [-0.511, 0.544, -1.18, 0.0, 0.0, 0.0]
+    joint_limits = [(-3, 3)] * 6  # Example joint limits
+    joint_limits[0] = (-2.687, 2.687) # elbow
+    joint_limits[1] = (0.0, 3.403) 
+    joint_limits[2] = (-3.0541012, 0.0) 
+    joint_limits[3] = (-1.8499, 1.8499) 
+    joint_limits[4] = (-1.3089, 1.3089) 
+    joint_limits[5] = (-1.7452, 1.7452) 
+
+    # Initialize RRT (assuming you have the RRT class set up)
+    rrt = RRT(start, goal, joint_limits)
+    rrt_path = rrt.planning(model)  # Generate the RRT path
+    print("----------")
+    print(type(rrt_path))
+    print(len(rrt_path))
+    # print(rrt_path)
+
+
+
+    if rrt_path:
+        print("Path found!")
+        # apply_rrt_path_to_dm_control(model, rrt_path, video_name="rrt_robot_motion.mp4")
+
+
+        for point in rrt_path:
+            # print(point)  # 打印每个路径点
+            joint_0 = round(point[0]*factor)
+            joint_1 = round(point[1]*factor)
+            joint_2 = round(point[2]*factor)
+            joint_3 = round(point[3]*factor)
+            joint_4 = round(point[4]*factor)
+            joint_5 = round(point[5]*factor)
+            joint_6 = round(0.0*1000*1000)
+            # piper.MotionCtrl_1()
+            piper.MotionCtrl_2(0x01, 0x01, 5, 0x00)
+            piper.JointCtrl(joint_0, joint_1, joint_2, joint_3, joint_4, joint_5)
+            piper.GripperCtrl(abs(joint_6), 1000, 0x01, 0)
+            time.sleep(0.005)
+            pass
+
+
+        
+    else:
+        print("No path found!")

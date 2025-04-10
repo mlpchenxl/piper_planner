@@ -6,3 +6,4 @@ __pycache__/
 .vscode/
 
 media/
+piper_planning.egg-info/
